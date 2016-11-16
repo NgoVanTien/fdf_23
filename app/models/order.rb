@@ -4,7 +4,9 @@ class Order < ApplicationRecord
   has_many :items, dependent: :destroy
   belongs_to :user
 
-  after_save :build_items
+  after_create :build_items
+
+  scope :recent, ->{order created_at: :desc}
 
   private
   def build_items

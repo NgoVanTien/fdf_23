@@ -5,9 +5,9 @@
     <div class="content-order">
       <hr><%= order.created_at.strftime t(:time_order) %>
       <% if order.is_accept? %>
-        <label class="label label-succsess">Ordered</label>
+        <span class="label label-info">Confirm</span>
       <% else %>
-        <label class="label label-warning">Waiting</label>
+        <span class="label label-warning">Waiting</span>
       <% end %>
       <%= link_to t(:delete_order), order_path(order),
         method: :delete, remote: :true, data: {confirm: t(:are_ready)},

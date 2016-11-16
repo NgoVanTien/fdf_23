@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :load_order, only: [:show, :destroy]
 
   def index
-    @orders = Order.all
+    @orders = current_user.orders.all
   end
 
   def show
