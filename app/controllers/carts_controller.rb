@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   before_action :load_product, only: :update
 
   def index
+    @order = Order.new
   end
 
   def update

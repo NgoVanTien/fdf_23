@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     registrations: "users/registrations"}
   resources :products, only: [:index, :show]
   resources :carts
+  resources :orders
 end
 

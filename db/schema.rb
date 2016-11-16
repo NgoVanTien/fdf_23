@@ -42,10 +42,10 @@ ActiveRecord::Schema.define(version: 20161109014508) do
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.float    "cost",       limit: 24
-    t.boolean  "is_accept"
+    t.boolean  "is_accept",             default: false
     t.integer  "user_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
