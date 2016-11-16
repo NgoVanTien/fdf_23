@@ -16,4 +16,8 @@ module ApplicationHelper
       format: Settings.currency.format,
       precision: Settings.currency.precision)
   end
+
+  def total_price_order item
+    item.number * item.product.price
+  end
 end
