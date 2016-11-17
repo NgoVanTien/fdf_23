@@ -4,14 +4,31 @@
   <% @orders.each do |order| %>
     <div class="content-order">
       <hr><%= order.created_at.strftime t(:time_order) %>
-      <% if order.is_accept? %>
-        <span class="label label-info">Confirm</span>
+      <% if order.is_confirm? %>
+        <span class="label label-success">Confirm</span>
       <% else %>
-        <span class="label label-warning">Waiting</span>
+        <% if order.is_accept? %>
+          <span class="label label-info">Transaction</span>
+        <% else %>
+          <span class="label label-warning">Waiting</span>
+        <% end %>
       <% end %>
-      <%= link_to t(:delete_order), order_path(order),
-        method: :delete, remote: :true, data: {confirm: t(:are_ready)},
-        class: "btn btn-danger btn-delete-order" %>
+
+      <div class="aaa">
+        <% if order.is_confirm? %>
+          <label></label>
+        <% else %>
+          <% if order.is_accept?  %>
+            <%= form_for order do |f| %>
+              <%= f.check_box :is_confirm, :checked => true, :style => 'visibility: hidden' %>
+              <%= f.submit "Confirm", class: "btn btn-small btn-primary btn-trading" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= link_to t(:delete_order), order_path(order),
+          method: :delete, remote: :true, data: {confirm: t(:are_ready)},
+          class: "btn btn-danger btn-delete-order" %>
+      </div>
       <hr>
       <table class="table table-striped table-bordered table-hover table-condensed"
         id="cart">

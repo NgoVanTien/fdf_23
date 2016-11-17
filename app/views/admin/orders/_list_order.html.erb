@@ -4,17 +4,26 @@
   <% @orders.each do |order| %>
     <div class="content-order">
       <hr><%= order.created_at.strftime t(:time_order) %>
-      <% if order.is_accept? %>
-        <span class="label label-info">Confirm</span>
+      <% if order.is_confirm? %>
+        <span class="label label-success">Confirm</span>
       <% else %>
-        <span class="label label-warning">Waiting</span>
+        <% if order.is_accept? %>
+          <span class="label label-info">Transaction</span>
+        <% else %>
+          <span class="label label-warning">Waiting</span>
+        <% end %>
       <% end %>
+      <br>
+      Create by : <%= order.user.name %>
       <div class="aaa">
-      <%= form_for [:admin, order] do |f| %>
-        <%= f.check_box :is_accept, :checked => true, :style => 'visibility: hidden' %>
-        <%= f.submit "Trading", class: "btn btn-small btn-primary btn-trading" %>
+      <% if order.is_accept? %>
+        <label></label>
+      <% else %>
+        <%= form_for [:admin, order] do |f| %>
+          <%= f.check_box :is_accept, :checked => true, :style => 'visibility: hidden' %>
+          <%= f.submit "Transaction", class: "btn btn-small btn-primary btn-trading" %>
+        <% end %>
       <% end %>
-
       <%= link_to t(:delete_order), admin_order_path(order),
         method: :delete, remote: :true, data: {confirm: t(:are_ready)},
         class: "btn btn-danger btn-delete-order" %>

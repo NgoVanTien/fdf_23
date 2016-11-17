@@ -1,5 +1,6 @@
 class Admin::CategoriesController < ApplicationController
   before_action :load_category, only: :destroy
+  before_action :authorize_admin
 
   def index
     @category = Category.new

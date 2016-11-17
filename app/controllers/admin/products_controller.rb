@@ -2,6 +2,8 @@ class Admin::ProductsController < ApplicationController
   layout "admin_application"
   before_action :load_product, only: [:edit, :destroy]
   before_action :load_categories, only: [:new, :edit, :create]
+  load_and_authorize_resource
+  before_action :authorize_admin
 
   def index
     @products = Product.recent.page(params[:page]).per Settings.per_page.products
@@ -57,4 +59,6 @@ class Admin::ProductsController < ApplicationController
   def load_categories
     @categories = Category.all
   end
+
+
 end

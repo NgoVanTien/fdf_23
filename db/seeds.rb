@@ -19,6 +19,7 @@ categories.each do |category|
     Product.create! name: name, description: description, price: price,
       category_id: category.id, rating: rating
   end
+end
 
 user = User.find(id = 2)
 15.times do

@@ -1,10 +1,9 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
-  layout 'mailer'
+  default from: "tien.framgia@gmail.com"
 
-  def welcome_email(user)
-    @user = user
-    @url  = 'http://food-and-drink.com/login'
-    mail(to: @user.email, subject: 'Welcome to My Food&Drink Site')
+  def order_email course
+    @supervisor = course
+
+    mail to: "tien.framgia@gmail.com", subject: 'Sample Email'
   end
 end

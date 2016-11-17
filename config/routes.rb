@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :products
     resources :orders
+    get "statistics" => "statistics#index"
   end
   root "static_pages#home"
   resources :suggestions

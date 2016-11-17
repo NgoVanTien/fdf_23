@@ -18,16 +18,19 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right" id="top-nav">
                   <li>
-                    <%= link_to t(:menu_home), "#" %>
+                    <%= link_to t(:menu_home), root_path %>
                   </li>
+                  <% if current_user.role? %>
                   <li>
-                    <%= link_to t(:menu_about), "#" %>
+                    <%= link_to "ADMIN", admin_products_path %>
                   </li>
+                  <% end %>
                   <li>
-                    <%= link_to t(:menu_product), "#" %>
+                    <%= link_to t(:menu_product), products_path %>
                   </li>
+
                   <li>
-                    <%= link_to t(:menu_price), "#" %>
+                    <%= link_to "SUGGESTION", suggestions_path %>
                   </li>
                   <% if user_signed_in? %>
                     <li>
@@ -64,16 +67,19 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <%= link_to t(:menu_home), "#" %>
+            <%= link_to t(:menu_home), root_path %>
           </li>
+          <% if current_user.role? %>
           <li>
-            <%= link_to t(:menu_about), "#" %>
+            <%= link_to "ADMIN", admin_products_path %>
           </li>
+          <% end %>
           <li>
-            <%= link_to t(:menu_product), "#" %>
+            <%= link_to t(:menu_product), products_path %>
           </li>
+
           <li>
-            <%= link_to t(:menu_price), "#" %>
+            <%= link_to "SUGGESTION", suggestions_path %>
           </li>
           <% if user_signed_in? %>
             <li>

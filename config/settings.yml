@@ -35,3 +35,8 @@ condition:
   index_six: 6
 item:
   num_quantitty: 1
+filte:
+  conditions:
+    is_accept: Transaction
+    not_eccept: Warning
+    is_confirm: Corfirm

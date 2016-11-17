@@ -1,9 +1,19 @@
 class Admin::OrdersController < ApplicationController
   layout "admin_application"
   before_action :load_order, only: [:show, :destroy]
+  before_action :authorize_admin
 
   def index
-    @orders = Order.recent.page(params[:page]).per 3
+    # @orders = Order.recent.page(params[:page]).per 3
+      # @orders = Order.search_accept(params[:search]).page(params[:page]).per 3
+    # @orders = Order.load_or_filter(params)
+    #   .where("order.user_id = ? OR order.user_id IS NULL", current_user.id)
+
+    params[:filter_by] = :all if params[:filter_by].blank?
+    @orders = params[:filter_by] == :all ? Order.all :
+      Order.send(params[:filter_by])
+    @orders = @orders.search_name(params[:search])
+      .page(params[:page]).per 3
   end
 
   def show
@@ -11,20 +21,13 @@ class Admin::OrdersController < ApplicationController
 
   def update
     @orders = Order.find_by id: params[:id]
-    respond_to do |format|
       if @orders.update_attributes order_params
-        byebug
-        UserMailer.welcome_email(current_user.id).deliver_later
-        format.html
-        format.json
+        UserMailer.sample_email(@orders).deliver_now
         flash[:success] = t "flash.success_message"
       else
-        format.html { render action: 'new' }
-        format.json { render json: current_user.errors, status: :unprocessable_entity }
         flash[:danger] = t "flash.danger_message"
       end
       redirect_to admin_orders_path
-    end
   end
 
   def destroy

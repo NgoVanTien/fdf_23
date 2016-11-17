@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :load_order, only: [:show, :destroy]
 
   def index
-    @orders = current_user.orders.all
+    @orders = current_user.orders.recent.page(params[:page]).per 3
   end
 
   def show
@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
     if @cart.present?
       @order = current_user.orders.new order_params
       if @order.save
+        UserMailer.transaction_request_mail(@order).deliver_now
         session.delete :cart
         flash[:success] = t "order_create_succsess"
         redirect_to order_path @order
@@ -37,6 +38,20 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def update
+    @orders = Order.find_by id: params[:id]
+      if @orders.update_attributes confirm_params
+        UserMailer.confirm_mail(@orders).deliver_now
+        flash[:success] = t "flash.success_message"
+      else
+        flash[:danger] = t "flash.danger_message"
+      end
+      @orders.items.each do |it|
+          it.update_attributes is_order: true
+        end
+      redirect_to orders_path
+  end
+
   private
   def order_params
     params.permit(:id).merge! cost: @cart.total_price, cart: @cart
@@ -48,5 +63,9 @@ class OrdersController < ApplicationController
       flash[:danger] = t "flash_danger_not_order"
       redirect_to root_path
     end
+  end
+
+  def confirm_params
+    params.require(:order).permit :is_confirm
   end
 end

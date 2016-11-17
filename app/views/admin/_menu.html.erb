@@ -1,3 +1,43 @@
+<nav class="navbar navbar-inverse navbar-fixed-top navigation2">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to t(:title_home), root_path, class: "navbar-brand" %>
+    </div>
+    <div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to t(:menu_home), root_path %>
+          </li>
+          <li>
+            <%= link_to t(:menu_product), admin_products_path %>
+          </li>
+          <li>
+            <%= link_to "ORDER", admin_orders_path %>
+          </li>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to t(:menu_edit_profile),
+                edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to t(:menu_sign_out), destroy_user_session_path,
+                method: :delete, data: { confirm: t(:sign_out_sure) } %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to t(:menu_login), new_user_session_path %>
+            </li>
+            <li>
+              <%= link_to t(:menu_sign_up), new_user_registration_path %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <nav class="navbar navbar-default navbar-cls-top " role="navigation">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -10,8 +50,36 @@
     <%= link_to t("title_home"), root_url, class: "navbar-brand" %>
   </div>
   <div class="navbar-login">
-    <%= link_to t("menu_log_out"), destroy_user_session_path, method: :delete,
-      class: "btn btn-danger square-btn-adjust" %>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to t(:menu_home), root_path %>
+          </li>
+          <li>
+            <%= link_to t(:menu_product), admin_products_path %>
+          </li>
+          <li>
+            <%= link_to "ORDER", admin_orders_path %>
+          </li>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to t(:menu_edit_profile),
+                edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to t(:menu_sign_out), destroy_user_session_path,
+                method: :delete, data: { confirm: t(:sign_out_sure) } %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to t(:menu_login), new_user_session_path %>
+            </li>
+            <li>
+              <%= link_to t(:menu_sign_up), new_user_registration_path %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
   </div>
 </nav>
 <nav class="navbar-default navbar-side" role="navigation">
@@ -21,32 +89,32 @@
         <%= image_tag("profile.jpg", class: "user-image img-responsive") %>
       </li>
       <li>
-        <%= link_to root_url, class: "active-menu" do %>
+        <%= link_to edit_user_registration_path, class: "active-menu" do %>
           <i class="fa fa-group fa-3x"></i>
           <%= t "menu_users" %>
         <% end %>
       </li>
       <li>
-        <%= link_to root_url do %>
+        <%= link_to admin_categories_path do %>
           <i class="fa fa-cubes fa-3x"></i>
           <%= t "menu_categories" %>
         <% end %>
       <li>
-        <%= link_to root_url do %>
+        <%= link_to admin_products_path do %>
           <i class="fa fa-cutlery fa-3x"></i>
           <%= t "menu_products" %>
         <% end %>
       </li>
       <li>
-        <%= link_to root_url do %>
+        <%= link_to admin_statistics_path do %>
           <i class="fa fa-bar-chart-o fa-3x"></i>
           <%= t "menu_graphs" %>
         <% end %>
       </li>
       <li>
-        <%= link_to root_url do %>
+        <%= link_to admin_orders_path do %>
           <i class="fa fa-truck fa-3x"></i>
-          <%= t "menu_carts" %>
+          Order
         <% end %>
       </li>
     </ul>

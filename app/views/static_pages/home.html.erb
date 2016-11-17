@@ -18,16 +18,19 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right" id="top-nav">
                   <li>
-                    <%= link_to t(:menu_home), "#" %>
+                    <%= link_to t(:menu_home), root_path %>
                   </li>
+                  <% if current_user.role? %>
                   <li>
-                    <%= link_to t(:menu_about), "#" %>
+                    <%= link_to "ADMIN", admin_products_path %>
                   </li>
+                  <% end %>
                   <li>
-                    <%= link_to t(:menu_product), "#" %>
+                    <%= link_to t(:menu_product), products_path %>
                   </li>
+
                   <li>
-                    <%= link_to t(:menu_price), "#" %>
+                    <%= link_to "SUGGESTION", suggestions_path %>
                   </li>
                   <% if user_signed_in? %>
                     <li>
@@ -35,7 +38,8 @@
                         edit_user_registration_path %>
                     </li>
                     <li>
-                      <%= link_to t(:menu_sign_out), destroy_user_session_path, method: :delete %>
+                      <%= link_to t(:menu_sign_out), destroy_user_session_path,
+                        method: :delete, data: { confirm: t(:sign_out_sure) } %>
                     </li>
                   <% else %>
                     <li>
@@ -63,32 +67,36 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <%= link_to t(:menu_home), "#" %>
-        </li>
-        <li>
-          <%= link_to t(:menu_about), "#" %>
-        </li>
-        <li>
-          <%= link_to t(:menu_product), "#" %>
-        </li>
-        <li>
-          <%= link_to t(:menu_price), "#" %>
-        </li>
-        <% if user_signed_in? %>
-          <li>
-            <%= link_to t(:menu_edit_profile),
-              edit_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to t(:menu_sign_out), destroy_user_session_path, method: :delete %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to t(:menu_login), new_user_session_path %>
-          </li>
-          <li>
-            <%= link_to t(:menu_sign_up), new_user_registration_path %>
-          </li>
+                    <%= link_to t(:menu_home), root_path %>
+                  </li>
+                  <% if current_user.role? %>
+                  <li>
+                    <%= link_to "ADMIN", admin_products_path %>
+                  </li>
+                  <% end %>
+                  <li>
+                    <%= link_to t(:menu_product), products_path %>
+                  </li>
+
+                  <li>
+                    <%= link_to "SUGGESTION", suggestions_path %>
+                  </li>
+                  <% if user_signed_in? %>
+                    <li>
+                      <%= link_to t(:menu_edit_profile),
+                        edit_user_registration_path %>
+                    </li>
+                    <li>
+                      <%= link_to t(:menu_sign_out), destroy_user_session_path,
+                        method: :delete, data: { confirm: t(:sign_out_sure) } %>
+                    </li>
+                  <% else %>
+                    <li>
+                      <%= link_to t(:menu_login), new_user_session_path %>
+                    </li>
+                    <li>
+                      <%= link_to t(:menu_sign_up), new_user_registration_path %>
+                    </li>
         <% end %>
       </ul>
     </div>
@@ -258,9 +266,8 @@
               <% end %>
             <% end %>
           </ul>
-          <a class="btn btn-default btn-more-info wow bounceIn"
-            data-wow-duration="500ms" data-wow-delay="1200ms"
-            href="#" role="button"><%= t "blog_more_info" %></a>
+          <%= link_to "MORE INFO", products_path, class: "btn btn-default btn-more-info wow bounceIn", role: "button" %>
+
         </div>
       </div>
     </div>

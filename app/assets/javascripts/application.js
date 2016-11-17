@@ -16,6 +16,8 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require bootstrap
+//= require highcharts
+//= require chartkick
 //= require owl.carousel
 //= require custom
 //= require jquery.remotipart

@@ -32,10 +32,11 @@ ActiveRecord::Schema.define(version: 20161109014508) do
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "number"
     t.float    "price",      limit: 24
+    t.boolean  "is_order",              default: false
     t.integer  "order_id"
     t.integer  "product_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.index ["order_id"], name: "index_items_on_order_id", using: :btree
     t.index ["product_id"], name: "index_items_on_product_id", using: :btree
   end
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161109014508) do
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.float    "cost",       limit: 24
     t.boolean  "is_accept",             default: false
+    t.boolean  "is_confirm",            default: false
     t.integer  "user_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
